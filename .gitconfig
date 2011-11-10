@@ -1,0 +1,16 @@
+# vim: sw=4 ts=4
+[user]
+	name = Webber Wu
+	email = chenshin0719@gmail.com
+[color]
+	ui = auto
+	diff = auto
+	status = auto
+	branch = auto
+[push]
+	default = matching
+[alias]
+    cm = commit -a
+    st = status
+    co = checkout
+    br = branch
