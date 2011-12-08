@@ -2,7 +2,7 @@
 startup_message off
 
 defutf8 on
-deflogin on
+#deflogin on
 autodetach on
 
 attrcolor b ".i"
@@ -28,8 +28,8 @@ bind ^\
 #make them better
 bind \\ quit
 bind K kill
-bind I login on
-bind O login off
+#bind I login on
+#bind O login off
 bind } history
 
 bindkey -k k2 screen                                    # F2  | Create new window
