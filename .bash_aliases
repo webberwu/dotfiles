@@ -19,8 +19,7 @@ esac
 
 alias today="date '+%Y%m%d'"
 alias h='history'
-alias grep='grep --color'
-alias g='grep -rin --color'
+alias g='grep -rin'
 alias ll="ls -ahlF"
 alias ..='cd ..'
 alias ...='cd ../..'
