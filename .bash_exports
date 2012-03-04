@@ -61,3 +61,10 @@ if [ -e $HOME/.ec2 ]; then
 	export EC2_HOME="$DEV_HOME/ec2-api-tools"
 	export PATH="$EC2_HOME/bin:$PATH"
 fi
+
+export PATH="$PATH:$HOME/.rvm/bin"
+# Load RVM into a shell session *as a function*
+if [ -s "$HOME/.rvm/scripts/rvm" ]; then
+    source "$HOME/.rvm/scripts/rvm"
+fi
+
