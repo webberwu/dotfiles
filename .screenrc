@@ -31,6 +31,7 @@ bind K kill
 #bind I login on
 #bind O login off
 bind } history
+bind b encoding big5 utf8 # 切換成 big5 編碼 (terminal default: utf8)
 
 bindkey -k k2 screen                                    # F2  | Create new window
 bindkey -k k3 prev                                      # F3  | Previous Window
