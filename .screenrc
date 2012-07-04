@@ -43,4 +43,4 @@ register t "^aA^aa^k^h"                                 #     | Goes with the F8
 bindkey -k k8 process t                                 # F8  | Re-title a window
 
 caption always "%{= KW}%-w%{= yk}%50> %n %t %{= KW}%+w%<"
-hardstatus alwayslastline "%{= kw} %l%016= %{= ky} %n %t %=%{= kw} %Y/%m/%d %c:%s"
+hardstatus alwayslastline "%{= kw} %l %=%{= ky} %H: %n %t %=%{= kw} %Y/%m/%d %c:%s"
