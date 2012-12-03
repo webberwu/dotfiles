@@ -17,6 +17,7 @@ case $(uname -s) in
 		;;
 esac
 
+alias tmux="tmux -2"
 alias today="date '+%Y%m%d'"
 alias h='history'
 alias g='grep -rin'
