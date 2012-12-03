@@ -30,6 +30,7 @@ case $(uname -s) in
 esac
 
 
+export TERM="xterm-256color"
 export EDITOR="vim"
 export DEBFULLNAME="Webber Wu"
 export DEBEMAIL="chenshin0719@gmail.com"
