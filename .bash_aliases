@@ -27,3 +27,5 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
+alias findswp="find . -name '*.swp'"
+alias delswp="findswp; find . -name '*.swp' | xargs rm"
