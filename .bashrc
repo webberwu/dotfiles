@@ -17,3 +17,4 @@ function load_rcfile {
 load_rcfile ~/.bash/rc.os/`uname -s`
 load_rcfile ~/.bash/rc.host/$HOSTNAME
 load_rcfile ~/.bash/rc
+. ~/.nvm/nvm.sh
