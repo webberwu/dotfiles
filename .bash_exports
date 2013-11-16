@@ -17,6 +17,6 @@ export GIT_PS1_SHOWSTASHSTATE=1
 export GIT_PS1_SHOWUPSTREAM="auto"
 
 # PS1 color non-printable 要用 \[ \] wrap 起來
-export PS1='\u\[\033[0;33m\]@\H \[\033[1;34m\]\w\[\033[0m\]$(__git_ps1 "\[\033[1;32m\](%s)\[\033[0m\]") \[\033[1;30m\]»\[\033[0;37m\]»\[\033[1;37m\]» \[\033[0m\]'
+export PS1='\u\[\033[0;33m\]@\H[\j] \[\033[1;34m\]\w\[\033[0m\]$(__git_ps1 "\[\033[1;32m\](%s)\[\033[0m\]") \[\033[1;30m\]»\[\033[0;37m\]»\[\033[1;37m\]» \[\033[0m\]'
 
 export PATH="$HOME/bin:$PATH"
