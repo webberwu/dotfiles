@@ -1,45 +1,10 @@
 # vim: set ft=sh:
 
-type -P most &>/dev/null
-if [ $? == 0 ]; then
-    MOST=`which most`
-fi
-case $(uname -s) in
-    Linux)
-        export JAVA_HOME="/usr/lib/jvm/java-6-sun"
-        export DEV_HOME="$HOME/dev"
-        export ANDROID_HOME="$DEV_HOME/android-sdk-linux_x86"
-        export PATH="$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH"
-        export GREP_OPTIONS='--color=auto --mmap --exclude-dir=\.svn --exclude-dir=\.git --exclude=*\.swp'
-        if [ -n "$MOST" ]; then export MANPAGER="$MOST -s"; fi
-        ;;
-    Darwin)
-        export DEV_HOME="$HOME/Development"
-        export ANDROID_HOME="$DEV_HOME/android-sdk-mac_x86"
-        export PATH="$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH"
-        export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Home"
-        export GREP_OPTIONS='--color=auto --mmap --exclude=*\.swp'
-        if [ -n "$MOST" ]; then export MANPAGER="$MOST -s"; fi
-        ;;
-    FreeBSD)
-        export DEV_HOME="$HOME/dev"
-        export JAVA_HOME="/usr/local/diablo-jdk1.6.0"
-        export GREP_OPTIONS='--color=auto --mmap --exclude=*\.swp'
-        if [ -n "$MOST" ]; then alias man="man -P $MOST"; fi
-        ;;
-esac
-
-
 export LC_ALL=en_US.UTF-8
-export TERM="xterm-256color"
 export EDITOR="vim"
 export DEBFULLNAME="Webber Wu"
 export DEBEMAIL="chenshin0719@gmail.com"
-export APPENGINE_HOME="$DEV_HOME/google_appengine"
-export PLAY_HOME="$DEV_HOME/play"
-export MAVEN_HOME="$DEV_HOME/apache-maven"
-export AWS_IAM_HOME="$DEV_HOME/IAMCli-1.2.0"
-export TITANIUM_HOME="$DEV_HOME/Titanium\\ Developer-1.2.2"
+export GREP_OPTIONS='--color=auto --mmap --exclude-dir=\.svn --exclude-dir=\.git --exclude=*\.swp'
 export GREP_COLOR="1;33"
 
 # unstaged (*) and staged (+)
@@ -54,18 +19,4 @@ export GIT_PS1_SHOWUPSTREAM="auto"
 # PS1 color non-printable 要用 \[ \] wrap 起來
 export PS1='\u\[\033[0;33m\]@\H \[\033[1;34m\]\w\[\033[0m\]$(__git_ps1 "\[\033[1;32m\](%s)\[\033[0m\]") \[\033[1;30m\]»\[\033[0;37m\]»\[\033[1;37m\]» \[\033[0m\]'
 
-export PATH="$HOME/bin:$AWS_IAM_HOME/bin:$PLAY_HOME:$MAVEN_HOME/bin:$APPENGINE_HOME:$PATH"
-
-if [ -e $HOME/.ec2 ]; then
-    export EC2_PRIVATE_KEY="$HOME/.ec2/pk-*.pem"
-    export EC2_CERT="$HOME/.ec2/cert-*.pem"
-    export EC2_HOME="$DEV_HOME/ec2-api-tools"
-    export PATH="$EC2_HOME/bin:$PATH"
-fi
-
-export PATH="$PATH:$HOME/.rvm/bin"
-# Load RVM into a shell session *as a function*
-if [ -s "$HOME/.rvm/scripts/rvm" ]; then
-    source "$HOME/.rvm/scripts/rvm"
-fi
-
+export PATH="$HOME/bin:$PATH"
