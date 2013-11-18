@@ -1,10 +1,21 @@
 # vim: set ft=sh:
 
+case $(uname -s) in
+    Linux)
+        export GREP_OPTIONS='--color=auto --mmap --exclude-dir=\.git --exclude=*\.swp'
+        ;;
+    Darwin)
+        export GREP_OPTIONS='--color=auto --mmap --exclude=\.git --exclude=*\.swp'
+        ;;
+    FreeBSD)
+        export GREP_OPTIONS='--color=auto --mmap --exclude=\.git --exclude=*\.swp'
+        ;;
+esac
+
 export LC_ALL=en_US.UTF-8
 export EDITOR="vim"
 export DEBFULLNAME="Webber Wu"
 export DEBEMAIL="chenshin0719@gmail.com"
-export GREP_OPTIONS='--color=auto --mmap --exclude-dir=\.svn --exclude-dir=\.git --exclude=*\.swp'
 export GREP_COLOR="1;33"
 
 # unstaged (*) and staged (+)
