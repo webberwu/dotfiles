@@ -1,4 +1,6 @@
 # vim: set ft=sh:
+MOST=`which most`
+
 case $(uname -s) in
     Linux)
         alias ls='ls --color=auto'
@@ -27,6 +29,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
+alias man="man -P $MOST"
 alias findswp="find . -name '*.swp'"
 alias delswp="findswp; find . -name '*.swp' | xargs rm"
 alias composer='php -d allow_url_fopen=On ~/bin/composer.phar'
