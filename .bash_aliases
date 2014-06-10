@@ -31,4 +31,4 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias findswp="find . -name '*.swp'"
 alias delswp="findswp; find . -name '*.swp' | xargs rm"
-alias composer='php -d allow_url_fopen=On ~/bin/composer.phar'
+alias composer='php -d allow_url_fopen=On -d apc.enable_cli=off ~/bin/composer.phar'
