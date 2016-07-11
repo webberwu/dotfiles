@@ -2,13 +2,13 @@
 
 case $(uname -s) in
     Linux)
-        export GREP_OPTIONS='--color=auto --mmap --exclude-dir=\.git --exclude=*\.swp'
+        export GREP_OPTIONS='--color=auto --exclude-dir=\.git --exclude=*\.swp'
         ;;
     Darwin)
-        export GREP_OPTIONS='--color=auto --mmap --exclude=\.git --exclude=*\.swp'
+        export GREP_OPTIONS='--color=auto --exclude=\.git --exclude=*\.swp'
         ;;
     FreeBSD)
-        export GREP_OPTIONS='--color=auto --mmap --exclude=\.git --exclude=*\.swp'
+        export GREP_OPTIONS='--color=auto --exclude=\.git --exclude=*\.swp'
         ;;
 esac
 
