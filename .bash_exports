@@ -15,6 +15,7 @@ esac
 export LC_ALL=en_US.UTF-8
 export EDITOR="vim"
 export PAGER="most"
+export GIT_PAGER="less"
 export DEBFULLNAME="Webber Wu"
 export DEBEMAIL="chenshin0719@gmail.com"
 export GREP_COLOR="1;33"
