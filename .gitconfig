@@ -15,3 +15,5 @@
     co = checkout
     br = branch
     lg = log --graph --date=iso --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset'
+    lgg = log --pretty=format:'%h %an %s'
+    lggg = log --pretty=format:'%h %s'
