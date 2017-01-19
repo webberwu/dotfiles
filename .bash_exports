@@ -19,6 +19,7 @@ export GIT_PAGER="less"
 export DEBFULLNAME="Webber Wu"
 export DEBEMAIL="chenshin0719@gmail.com"
 export GREP_COLOR="1;33"
+export HISTTIMEFORMAT="%Y/%m/%d %T "
 
 # unstaged (*) and staged (+)
 #export GIT_PS1_SHOWDIRTYSTATE=1
