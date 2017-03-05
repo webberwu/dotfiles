@@ -11,7 +11,7 @@ function link {
 }
 
 for file in .*; do
-	if [ . != $file ] && [ .. != $file ] && [ .gitignore != $file ] && [ .git != $file ] && [ .*.swp != $file ]; then
+	if [ . != $file ] && [ .. != $file ] && [ '.gitignore' != $file ] && [ '.git' != $file ] && [ 'swp' != ${file##*.} ]; then
 		#link $file
                 echo $file
 	fi
