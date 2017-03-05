@@ -4,15 +4,15 @@ ABSPATH=$(cd ${0%/*} && echo `pwd`/${0##*/})
 CWD=`dirname "$ABSPATH"`
 
 function link {
-	srcfile="$CWD/$1"
-	destfile="$HOME/"
+    srcfile="$CWD/$1"
+    destfile="$HOME/"
 
-	ln -sfnv $srcfile $destfile
+    ln -sfnv $srcfile $destfile
 }
 
 for file in .*; do
-	if [ . != $file ] && [ .. != $file ] && [ '.gitignore' != $file ] && [ '.git' != $file ] && [ 'swp' != ${file##*.} ]; then
-		#link $file
-                echo $file
-	fi
+    if [ . != $file ] && [ .. != $file ] && [ '.gitignore' != $file ] && [ '.git' != $file ] && [ 'swp' != ${file##*.} ]; then
+        #link $file
+        echo $file
+    fi
 done
