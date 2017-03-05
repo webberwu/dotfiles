@@ -19,6 +19,12 @@ case $(uname -s) in
         ;;
 esac
 
+# syntax highlight with cat command
+# pip install Pygments
+if type pygmentize >/dev/null 2>&1; then
+    alias ccat='pygmentize -O style=monokai -f console256 -g'
+fi
+
 alias tmux="tmux -2"
 alias today="date '+%Y%m%d'"
 alias h='history'
