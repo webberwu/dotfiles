@@ -32,7 +32,8 @@ export GIT_PS1_SHOWUPSTREAM="auto"
 
 # PS1 color non-printable 要用 \[ \] wrap \033[0;33m，e.g. \[\033[0;33m\]
 # CLI 指令過長沒正常斷行造成 overlap 時，可以檢查 wrap 是否正確
-export PS1='\[\e[38;5;162m\]\u\[\033[0m\]@\[\e[38;5;129m\]\H[\j][\t] \[\e[38;5;208m\]\w\[\033[0m\]$(__git_ps1 "\[\e[38;5;112m\](%s)\[\033[0m\]") \[\033[1;30m\]»\[\033[0;37m\]»\[\033[1;37m\]» \[\033[0m\]'
+# http://misc.flogisoft.com/bash/tip_colors_and_formatting
+export PS1='\[\e[48;5;162m\] \u \[\e[0m\]\[\e[48;5;236m\] \H[\j][\t] \[\e[0m\] \[\e[38;5;208m\]\w\[\e[0m\]$(__git_ps1 "\[\e[38;5;112m\](%s)\[\e[0m\]") \[\e[1;30m\]»\[\e[0;37m\]»\[\e[1;37m\]» \[\e[0m\]'
 
 export PATH="$HOME/bin:$PATH"
 
