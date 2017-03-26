@@ -25,6 +25,7 @@ export DEBEMAIL="chenshin0719@gmail.com"
 export GREP_COLOR="1;33"
 export HISTTIMEFORMAT="%Y/%m/%d %T "
 
+# https://github.com/git/git/tree/master/contrib/completion
 # unstaged (*) and staged (+)
 export GIT_PS1_SHOWDIRTYSTATE=1
 # If something is stashed then a '$' will be shown next to the branch name.
