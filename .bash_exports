@@ -26,11 +26,11 @@ export GREP_COLOR="1;33"
 export HISTTIMEFORMAT="%Y/%m/%d %T "
 
 # unstaged (*) and staged (+)
-#export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWDIRTYSTATE=1
 # If something is stashed then a '$' will be shown next to the branch name.
 export GIT_PS1_SHOWSTASHSTATE=1
 # If there're untracked files, then a '%' will be shown next to the branch name.
-#export GIT_PS1_SHOWUNTRACKEDFILES=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
 # A "<" indicates you are behind, ">" indicates you are ahead, and "<>" indicates you have diverged.
 export GIT_PS1_SHOWUPSTREAM="auto"
 
