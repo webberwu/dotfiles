@@ -1,0 +1,6 @@
+set vertical-split = false
+
+bind generic H move-first-line
+bind generic L move-last-line
+bind generic <Ctrl-b> scroll-page-up
+bind generic <Ctrl-f> scroll-page-down
