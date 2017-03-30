@@ -36,7 +36,7 @@ export GIT_PS1_SHOWUPSTREAM="auto"
 # CLI 指令過長沒正常斷行造成 overlap 時，可以檢查 wrap 是否正確
 # http://misc.flogisoft.com/bash/tip_colors_and_formatting
 # scm_prompt_info from https://github.com/Bash-it/bash-it
-export PS1='\[\e[0;97m\]\[\e[48;5;162m\] \u \[\e[0;37m\]\[\e[48;5;236m\] \H[\[\e[38;5;162m\]\j\[\e[0;37m\]\[\e[48;5;236m\]] \t \[\e[0m\]\[\e[38;5;208m\] \w\e[38;5;112m$(scm_prompt_info) \[\e[0;90m\]»\[\e[0;37m\]»\[\e[0;97m\]» \[\e[0m\]'
+export PS1='\[\e[0;97m\]\[\e[48;5;162m\] \u \[\e[0;37m\]\[\e[48;5;236m\] \H[\[\e[38;5;162m\]\j\[\e[0;37m\]\[\e[48;5;236m\]] \t \[\e[0m\]\[\e[38;5;208m\] \w\[\e[38;5;112m\]$(scm_prompt_info) \[\e[0;90m\]»\[\e[0;37m\]»\[\e[0;97m\]» \[\e[0m\]'
 
 export PATH="$HOME/bin:$PATH"
 
