@@ -1,10 +1,10 @@
 #!/bin/bash
-theme_main_color="\[\e[38;5;162m\]"
+theme_main_color="\[\e[38;5;225m\]"
 theme_main_bgcolor="\[\e[48;5;162m\]"
 theme_second_color="\[\e[0;37m\]"
-theme_second_bgcolor="\[\e[48;5;236m\]"
+theme_second_bgcolor="\[\e[48;5;238m\]"
 theme_third_color="\[\e[38;5;208m\]"
-theme_highlight="\[\e[38;5;162m\]\[\e[48;5;236m\]"
+theme_highlight="\[\e[38;5;162m\]\[\e[48;5;238m\]"
 theme_ps1_suffix="\[\e[0;90m\]»\[\e[0;37m\]»\[\e[0;97m\]» \[\e[0m\]"
 
 green="\[\e[38;5;112m\]"
@@ -25,7 +25,7 @@ function git_prompt_info {
 }
 
 function prompt_command() {
-    PS1="${white}${theme_main_bgcolor} \u ${theme_second_color}${theme_second_bgcolor} \H[${theme_highlight}\j${theme_second_color}${theme_second_bgcolor}] \t ${normal}${theme_third_color} \w$(scm_prompt_info) ${theme_ps1_suffix}"
+    PS1="${theme_main_color}${theme_main_bgcolor} \u ${theme_second_color}${theme_second_bgcolor} \H[${theme_highlight}\j${theme_second_color}${theme_second_bgcolor}] \t ${normal}${theme_third_color} \w$(scm_prompt_info) ${theme_ps1_suffix}"
 }
 
 safe_append_prompt_command prompt_command
