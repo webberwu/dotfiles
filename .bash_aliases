@@ -37,3 +37,5 @@ alias composer='php -d allow_url_fopen=On -d apc.enable_cli=off ~/bin/composer.p
 alias docker-show-mounts="docker inspect -f '{{ json .Mounts }}'"
 alias docker-show-unuse-volumes="docker volume ls -qf dangling=true"
 alias docker-remove-unuse-volumes="docker volume ls -qf dangling=true | xargs docker volume rm"
+alias docker-show-unuse-images="docker images ls -qf dangling=true"
+alias docker-remove-unuse-images="docker images --no-trunc -aqf dangling=true | xargs docker rmi"
