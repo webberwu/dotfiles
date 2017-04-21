@@ -25,7 +25,7 @@ function git_prompt_info {
 }
 
 function prompt_command() {
-    PS1="${theme_main_color}${theme_main_bgcolor} \u ${theme_second_color}${theme_second_bgcolor} \H[${theme_highlight}\j${theme_second_color}${theme_second_bgcolor}] \t ${normal}${theme_third_color} \w$(scm_prompt_info) ${theme_ps1_suffix}"
+    PS1="${theme_main_color}${theme_main_bgcolor} \u ${theme_second_color}${theme_second_bgcolor} \h[${theme_highlight}\j${theme_second_color}${theme_second_bgcolor}] \t ${normal}${theme_third_color} \w$(scm_prompt_info) ${theme_ps1_suffix}"
 }
 
 safe_append_prompt_command prompt_command
