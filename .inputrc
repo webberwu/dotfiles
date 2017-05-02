@@ -7,6 +7,11 @@ set completion-ignore-case on
 set show-all-if-ambiguous on
 
 #auto completion next(ctrl+n) previous(ctrl+p)
+#upgrade bash upgrade to 4.x if previous(ctrl+p) not work in OS X
+#step1. brew install bash
+#step2. open "System Preferences > Users & Groups" to use homebrew's bash (located: /usr/local/bin/bash)
+#http://stackoverflow.com/questions/28141001/inputrc-menu-complete-backward-doesnt-work-on-mac-os-x#comment45502632_28575894
+#https://apple.stackexchange.com/a/24635
 Control-n: menu-complete
 Control-p: menu-complete-backward
 
