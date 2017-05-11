@@ -22,7 +22,9 @@ export DEBEMAIL="chenshin0719@gmail.com"
 export GREP_COLOR="1;33"
 export HISTTIMEFORMAT="%Y/%m/%d %T "
 
-export PATH="$HOME/bin:$PATH"
+export SCALA_HOME="/usr/local/share/scala"
+export SPARK_HOME="/usr/local/share/spark"
+export PATH="$HOME/bin:$SPARK_HOME/bin:$SCALA_HOME/bin:$PATH"
 
 # color settings for less command
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blink
