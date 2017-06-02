@@ -32,5 +32,5 @@ export LESS_TERMCAP_md=$'\e[38;5;162m' # begin bold
 export LESS_TERMCAP_me=$'\e[0m' # reset bold, blink
 export LESS_TERMCAP_us=$'\e[38;5;208m' # begin underline
 export LESS_TERMCAP_ue=$'\e[0m' # reset underline
-export LESS_TERMCAP_so=$'\e[38;5;225m\e[48;5;162m' # begin standout (reverse video)
+export LESS_TERMCAP_so=$'\e[38;5;15m\e[48;5;162m' # begin standout (reverse video)
 export LESS_TERMCAP_se=$'\e[0m' # reset standout

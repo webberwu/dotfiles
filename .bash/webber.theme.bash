@@ -1,5 +1,5 @@
 #!/bin/bash
-theme_main_color="\[\e[38;5;225m\]"
+theme_main_color="\[\e[38;5;15m\]"
 theme_main_bgcolor="\[\e[48;5;162m\]"
 theme_second_color="\[\e[0;37m\]"
 theme_second_bgcolor="\[\e[48;5;238m\]"
