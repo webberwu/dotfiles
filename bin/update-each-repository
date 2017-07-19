@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for REPO in `ls -d */`; do
+    echo -e "\033[0;35m"$REPO"\033[0m"
+    cd $REPO
+    git pull
+    cd ..
+done
