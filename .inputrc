@@ -38,5 +38,7 @@ $if mode=emacs
 "\e[5D": backward-word
 "\e\e[C": forward-word
 "\e\e[D": backward-word
+"\c-n": menu-complete
+"\c-p": menu-complete-backward
 
 $endif
