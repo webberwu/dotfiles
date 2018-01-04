@@ -22,7 +22,7 @@ fi
 alias tmux="tmux -2"
 alias today="date '+%Y%m%d'"
 alias h='history'
-alias grep='grep --color=auto --exclude-dir=\.git --exclude=*\.swp --exclude-dir=node_modules --exclude-dir=vendor'
+alias grep='grep --color=auto --exclude-dir=\.git --exclude=*\.swp'
 alias g='grep -rin'
 alias ll="ls -ahlF"
 alias ..='cd ..'
