@@ -18,3 +18,4 @@
     lgg = log --pretty=format:'%h %an %s'
     lggg = log --pretty=format:'%h %s'
     rank = shortlog -sn --no-merges
+    update-last-commit-date = commit --amend --no-edit --date=now
