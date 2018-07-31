@@ -26,3 +26,9 @@ fi
 [ -d $HOME/.composer/vendor/bin ] && export PATH=$HOME/.composer/vendor/bin:$PATH
 [ -d $HOME/Library/Python/2.7/bin ] && export PATH=$HOME/Library/Python/2.7/bin:$PATH
 [ -d $HOME/Library/Python/3.6/bin ] && export PATH=$HOME/Library/Python/3.6/bin:$PATH
+
+if [ ! -z $(command -v go) ]; then
+    [ -d /usr/local/opt/go/libexec/bin ] && export PATH=$PATH:/usr/local/opt/go/libexec/bin
+    export GOPATH=$(go env GOPATH)
+    export PATH=$PATH:$(go env GOPATH)/bin
+fi
