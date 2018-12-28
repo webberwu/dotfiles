@@ -1,33 +1,43 @@
 #!/bin/bash
-theme_main_color="\[\e[38;5;15m\]"
-theme_main_bgcolor="\[\e[48;5;162m\]"
-theme_main_arrow="\[\e[38;5;162m\]\[\e[48;5;238m\]"
-theme_second_color="\[\e[0;37m\]"
-theme_second_bgcolor="\[\e[48;5;238m\]"
-theme_second_arrow="\[\e[38;5;238m\]\[\e[48;5;16m\]"
-theme_third_color="\[\e[38;5;208m\]"
-theme_highlight="\[\e[38;5;162m\]\[\e[48;5;238m\]"
-theme_ps1_suffix="\[\e[0;90m\]»\[\e[0;37m\]»\[\e[0;97m\]» \[\e[0m\]"
+TERMINAL_BG=16
+ACCOUNT_FG=225
+ACCOUNT_BG=162
+INFO_FG=246
+INFO_BG=236
+INFO_HIGHTLIGHT_FG=208
+ACCOUNT_ARROW_FG="${ACCOUNT_BG}"
+ACCOUNT_ARROW_BG="${INFO_BG}"
+PATH_FG=208
+PATH_BG=235
+VERSION_CONTROL_FG=193
+VERSION_CONTROL_BG=64
 
-green="\[\e[38;5;112m\]"
-SCM_GIT_SHOW_MINIMAL_INFO=false
-SCM_THEME_PROMPT_DIRTY="${red} ✗"
-SCM_THEME_PROMPT_CLEAN="${bold_green} ✓"
-SCM_THEME_PROMPT_PREFIX="${green} ("
-SCM_THEME_PROMPT_SUFFIX="${green})"
-
-GIT_THEME_PROMPT_DIRTY="${red} ✗"
-GIT_THEME_PROMPT_CLEAN="${bold_green} ✓"
-GIT_THEME_PROMPT_PREFIX="${green} ("
-GIT_THEME_PROMPT_SUFFIX="${green})"
-
-function git_prompt_info {
-    git_prompt_vars
-    echo -e "${SCM_PREFIX}${SCM_BRANCH}${SCM_STATE}${SCM_SUFFIX}"
+function color() {
+    # foreground: \[\e[38;5;$1m\]
+    # background: \[\e[48;5;$2m\]
+    echo "\[\e[38;5;$1m\]\[\e[48;5;$2m\]"
 }
 
+function git_prompt_info() {
+    git_prompt_vars
+    echo -e "$(color ${PATH_BG} ${VERSION_CONTROL_BG})  ${SCM_PREFIX}${SCM_BRANCH}${SCM_STATE}${SCM_SUFFIX} $(color ${VERSION_CONTROL_BG} ${PATH_BG})"
+}
+
+GIT_THEME_PROMPT_DIRTY="$(color 125 ${VERSION_CONTROL_BG}) ✗"
+GIT_THEME_PROMPT_CLEAN="$(color 22 ${VERSION_CONTROL_BG}) ✓"
+GIT_THEME_PROMPT_PREFIX="$(color ${VERSION_CONTROL_FG} ${VERSION_CONTROL_BG})"
+GIT_THEME_PROMPT_SUFFIX="$(color ${VERSION_CONTROL_FG} ${VERSION_CONTROL_BG})"
+SCM_GIT_SHOW_MINIMAL_INFO=false
+SCM_THEME_PROMPT_DIRTY="${GIT_THEME_PROMPT_DIRTY}"
+SCM_THEME_PROMPT_CLEAN="${GIT_THEME_PROMPT_CLEAN}"
+SCM_THEME_PROMPT_PREFIX="${GIT_THEME_PROMPT_PREFIX}"
+SCM_THEME_PROMPT_SUFFIX="${GIT_THEME_PROMPT_SUFFIX}"
+
 function prompt_command() {
-    PS1="${theme_main_color}${theme_main_bgcolor} \u ${theme_main_arrow}${theme_second_color}${theme_second_bgcolor} \h[${theme_highlight}\j${theme_second_color}${theme_second_bgcolor}] \t ${theme_second_arrow}${normal}${theme_third_color} \w$(scm_prompt_info) ${theme_ps1_suffix}"
+    PS1="${normal}$(color ${ACCOUNT_FG} ${ACCOUNT_BG}) \u $(color ${ACCOUNT_ARROW_FG} ${ACCOUNT_ARROW_BG})"
+    PS1+="${normal}$(color ${INFO_FG} ${INFO_BG}) \h[$(color ${INFO_HIGHTLIGHT_FG} ${INFO_BG})\j$(color ${INFO_FG} ${INFO_BG})] \t $(color ${INFO_BG} ${PATH_BG})"
+    PS1+="${normal}$(color ${PATH_FG} ${PATH_BG}) \w $(scm_prompt_info)$(color ${PATH_BG} ${TERMINAL_BG})"
+    PS1+="${normal} "
 }
 
 safe_append_prompt_command prompt_command
