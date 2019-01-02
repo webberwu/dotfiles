@@ -1,4 +1,7 @@
 #!/bin/bash
+# shellcheck disable=SC2034
+
+NORMAL="\\[\\e[0m\\]"
 TERMINAL_BG=16
 ACCOUNT_FG=225
 ACCOUNT_BG=162
@@ -9,13 +12,13 @@ ACCOUNT_ARROW_FG="${ACCOUNT_BG}"
 ACCOUNT_ARROW_BG="${INFO_BG}"
 PATH_FG=208
 PATH_BG=235
-VERSION_CONTROL_FG=193
-VERSION_CONTROL_BG=64
+VERSION_CONTROL_FG=15
+VERSION_CONTROL_BG=106
 
 function color() {
     # foreground: \[\e[38;5;$1m\]
     # background: \[\e[48;5;$2m\]
-    echo "\[\e[38;5;$1m\]\[\e[48;5;$2m\]"
+    echo "\\[\\e[38;5;$1m\\]\\[\\e[48;5;$2m\\]"
 }
 
 function git_prompt_info() {
@@ -34,10 +37,10 @@ SCM_THEME_PROMPT_PREFIX="${GIT_THEME_PROMPT_PREFIX}"
 SCM_THEME_PROMPT_SUFFIX="${GIT_THEME_PROMPT_SUFFIX}"
 
 function prompt_command() {
-    PS1="${normal}$(color ${ACCOUNT_FG} ${ACCOUNT_BG}) \u $(color ${ACCOUNT_ARROW_FG} ${ACCOUNT_ARROW_BG})"
-    PS1+="${normal}$(color ${INFO_FG} ${INFO_BG}) \h[$(color ${INFO_HIGHTLIGHT_FG} ${INFO_BG})\j$(color ${INFO_FG} ${INFO_BG})] \t $(color ${INFO_BG} ${PATH_BG})"
-    PS1+="${normal}$(color ${PATH_FG} ${PATH_BG}) \w $(scm_prompt_info)$(color ${PATH_BG} ${TERMINAL_BG})"
-    PS1+="${normal} "
+    PS1="${NORMAL}$(color ${ACCOUNT_FG} ${ACCOUNT_BG}) \\u $(color ${ACCOUNT_ARROW_FG} ${ACCOUNT_ARROW_BG})"
+    PS1+="${NORMAL}$(color ${INFO_FG} ${INFO_BG}) \\h[$(color ${INFO_HIGHTLIGHT_FG} ${INFO_BG})\\j$(color ${INFO_FG} ${INFO_BG})] \\t $(color ${INFO_BG} ${PATH_BG})"
+    PS1+="${NORMAL}$(color ${PATH_FG} ${PATH_BG}) \\w $(scm_prompt_info)$(color ${PATH_BG} ${TERMINAL_BG})"
+    PS1+="${NORMAL} "
 }
 
 safe_append_prompt_command prompt_command
