@@ -42,3 +42,6 @@ $if mode=emacs
 "\c-p": menu-complete-backward
 
 $endif
+
+# https://unix.stackexchange.com/questions/257861/automatically-add-slash-when-navigating-through-symlink
+set mark-symlinked-directories on
