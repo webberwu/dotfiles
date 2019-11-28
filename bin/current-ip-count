@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+netstat -tn | grep -E ':(80|443) ' | awk '{print $5}' | cut -d : -f 1 | sort | uniq -c | sort -nr
