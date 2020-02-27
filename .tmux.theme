@@ -9,12 +9,12 @@
 #
 
 # Themepack format options
-set -goq @themepack-status-left-area-left-format "#S"
+set -goq @themepack-status-left-area-left-format "#H"
 set -goq @themepack-status-left-area-middle-format "#(whoami)"
 set -goq @themepack-status-left-area-right-format "#I:#P"
 set -goq @themepack-status-right-area-left-format "%H:%M:%S"
 set -goq @themepack-status-right-area-middle-format "%d-%b-%y"
-set -goq @themepack-status-right-area-right-format "#H"
+set -goq @themepack-status-right-area-right-format "#S"
 set -goq @themepack-window-status-current-format "#I:#W#F"
 set -goq @themepack-window-status-format "#I:#W#F"
 
@@ -51,6 +51,8 @@ set -goq @powerline-color-main-1 colour106
 set -goq @powerline-color-main-2 colour112
 set -goq @powerline-color-main-3 colour112
 set -goq @powerline-color-white-1 colour15
+set -goq @powerline-color-white-2 colour249
+set -goq @powerline-color-white-3 colour245
 set -goq @powerline-color-black-1 black
 set -goq @powerline-color-grey-1 colour233
 set -goq @powerline-color-grey-2 colour235
@@ -62,21 +64,21 @@ set -goq @powerline-color-grey-6 colour245
 # Powerline options
 set -goqF @powerline-color-activity-1 "#{@powerline-color-grey-6}"
 set -goqF @powerline-status-bg "#{@powerline-color-grey-1}"
-set -goqF @powerline-status-fg "#{@powerline-color-grey-4}"
+set -goqF @powerline-status-fg "#{@powerline-color-grey-3}"
 set -goqF @powerline-status-left-area-left-bg "#{@powerline-color-main-1}"
 set -goqF @powerline-status-left-area-left-fg "#{@powerline-color-white-1}"
 set -goqF @powerline-status-left-area-middle-bg "#{@powerline-status-fg}"
-set -goqF @powerline-status-left-area-middle-fg "#{@powerline-status-bg}"
+set -goqF @powerline-status-left-area-middle-fg "#{@powerline-color-white-2}"
 set -goqF @powerline-status-left-area-right-bg "#{@powerline-color-grey-2}"
-set -goqF @powerline-status-left-area-right-fg "#{@powerline-status-fg}"
+set -goqF @powerline-status-left-area-right-fg "#{@powerline-color-white-3}"
 set -goqF @powerline-status-left-bg "#{@powerline-color-grey-1}"
 set -goqF @powerline-status-left-fg "#{@powerline-color-grey-5}"
 set -goqF @powerline-status-right-area-left-bg "#{@powerline-color-grey-2}"
-set -goqF @powerline-status-right-area-left-fg "#{@powerline-status-fg}"
+set -goqF @powerline-status-right-area-left-fg "#{@powerline-color-white-3}"
 set -goqF @powerline-status-right-area-middle-bg "#{@powerline-status-fg}"
-set -goqF @powerline-status-right-area-middle-fg "#{@powerline-status-bg}"
-set -goqF @powerline-status-right-area-right-bg "#{@powerline-color-grey-6}"
-set -goqF @powerline-status-right-area-right-fg "#{@powerline-status-bg}"
+set -goqF @powerline-status-right-area-middle-fg "#{@powerline-color-white-2}"
+set -goqF @powerline-status-right-area-right-bg "#{@powerline-color-main-1}"
+set -goqF @powerline-status-right-area-right-fg "#{@powerline-color-white-1}"
 set -goqF @powerline-status-right-bg "#{@powerline-color-grey-1}"
 set -goqF @powerline-status-right-fg "#{@powerline-color-grey-5}"
 
@@ -112,7 +114,7 @@ set -goqF @theme-window-status-activity-fg "#{@powerline-color-activity-1}"
 set -goq  @theme-window-status-separator ""
 set -goqF @theme-window-status-current-bg "#{@powerline-color-black-1}"
 set -goqF @theme-window-status-current-fg "#{@powerline-color-main-2}"
-set -goqF @theme-window-status-format "  #{@themepack-window-status-format}  "
+set -goqF @theme-window-status-format " #{@themepack-window-status-format} "
 set -goqF @theme-window-status-current-format "#[fg=#{@theme-status-bg},bg=#{@theme-window-status-current-bg}]#[fg=#{@theme-window-status-current-fg},nobold] #{@themepack-window-status-current-format} #[fg=#{@theme-status-bg},bg=#{@theme-window-status-current-bg},nobold]"
 
 # Customizable prefixes and suffixes for @theme-* format options
