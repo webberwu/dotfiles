@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+git diff $@ --name-only --relative | fzf -m --ansi --preview-window 'right:60%' \
+    --preview "git diff --color=always {-1}" \
+    --bind alt-down:preview-page-down,alt-up:preview-page-up,alt-j:preview-down,alt-k:preview-up

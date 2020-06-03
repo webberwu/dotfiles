@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+fzf -m --ansi --preview-window 'right:60%' \
+    --preview "bat {-1} --color=always" \
+    --bind alt-down:preview-page-down,alt-up:preview-page-up,alt-j:preview-down,alt-k:preview-up

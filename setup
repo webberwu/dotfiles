@@ -16,3 +16,9 @@ for file in .*; do
         echo $file
     fi
 done
+
+for file in bin/*; do
+    if [ ! -L "$HOME/$file" ]; then
+        ln -sfnv "$CWD/$file" "$HOME/$file"
+    fi
+done
