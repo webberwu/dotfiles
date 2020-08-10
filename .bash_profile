@@ -30,6 +30,7 @@ fi
 
 if [ ! -z $(command -v go) ]; then
     [ -d /usr/local/opt/go/libexec/bin ] && export PATH=$PATH:/usr/local/opt/go/libexec/bin
+    export GO111MODULE=on
     export GOPATH=$(go env GOPATH)
     export PATH=$PATH:$(go env GOPATH)/bin
 fi
