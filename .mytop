@@ -1,0 +1,11 @@
+host=
+db=
+user=
+pass=
+port=3306
+delay=5
+color=1
+header=1
+idle=1
+slow=10
+long=120
