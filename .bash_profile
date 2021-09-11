@@ -29,8 +29,6 @@ fi
 [ ! -z `command -v yarn` ] && export PATH=$PATH:`yarn global bin`
 [ -d $HOME/.composer/vendor/bin ] && export PATH=$HOME/.composer/vendor/bin:$PATH
 [ -d $HOME/.config/composer/vendor/bin ] && export PATH=$HOME/.config/composer/vendor/bin:$PATH
-[ -d $HOME/Library/Python/2.7/bin ] && export PATH=$HOME/Library/Python/2.7/bin:$PATH
-[ -d $HOME/Library/Python/3.6/bin ] && export PATH=$HOME/Library/Python/3.6/bin:$PATH
 
 if [ ! -z $(command -v go) ]; then
     [ -d /usr/local/opt/go/libexec/bin ] && export PATH=$PATH:/usr/local/opt/go/libexec/bin
