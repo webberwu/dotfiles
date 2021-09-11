@@ -14,8 +14,11 @@ if [ -d $HOME/.bash_completion.d ] ; then
     done
 fi
 
-if [ ! -z `command -v brew` ] && [ -f `brew --prefix`/etc/bash_completion ]; then
-    source `brew --prefix`/etc/bash_completion
+if [ ! -z `command -v brew` ] && [ -d `brew --prefix`/etc/bash_completion.d ]; then
+    source `brew --prefix`/etc/bash_completion.d/*
+    export HOMEBREW_NO_AUTO_UPDATE=1
+    export HOMEBREW_NO_INSTALL_CLEANUP=1
+    export PATH="/opt/homebrew/bin:$PATH"
 fi
 
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
