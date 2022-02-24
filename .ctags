@@ -15,6 +15,5 @@
 
 --exclude=.git
 --exclude=.svn
---exclude=\*.js
 --exclude=\*.swp
 --exclude=node_modules
