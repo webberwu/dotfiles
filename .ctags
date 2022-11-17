@@ -1,4 +1,5 @@
 --regex-php=/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i
+--regex-php=/^[ \t]*enum[ \t]+([a-z0_9_]+)/\1/e,enum/i
 
 --langdef=scala
 --langmap=scala:.scala
