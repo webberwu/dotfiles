@@ -1,7 +1,7 @@
 # vim: sw=4 ts=4
 [user]
 	name = Webber Wu
-	email = chenshin0719@gmail.com
+	email = webber.wu@evolutivelabs.com
 [color]
 	ui = auto
 	diff = auto
@@ -19,3 +19,5 @@
     lggg = log --pretty=format:'%h %s'
     rank = shortlog -sn --no-merges
     update-last-commit-date = commit --amend --no-edit --date=now
+[core]
+    hookspath = ~/.git-hooks

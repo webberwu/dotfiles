@@ -1,0 +1,13 @@
+#!/bin/sh
+
+protected_branchs=("master main")
+current_branch=$(git rev-parse --symbolic --abbrev-ref HEAD)
+
+if [[ "${protected_branchs[*]}" =~ "$current_branch" ]]; then
+    read -p "$(echo "\033[38;5;225m\033[48;5;162mYou're about to commit to master, is that what you intended? [y|n] ")" -n 1 -r </dev/tty
+    echo "\033[0m"
+    if echo "$REPLY" | grep -E '^[Yy]$' >/dev/null; then
+        exit 0 # commit will execute
+    fi
+    exit 1 # commit will not execute
+fi
