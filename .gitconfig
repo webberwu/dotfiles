@@ -21,3 +21,4 @@
     update-last-commit-date = commit --amend --no-edit --date=now
 [core]
     hookspath = ~/.git-hooks
+	ignorecase = false
