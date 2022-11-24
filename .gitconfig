@@ -1,14 +1,14 @@
 # vim: sw=4 ts=4
 [user]
-	name = Webber Wu
-	email = webber.wu@evolutivelabs.com
+    name = Webber Wu
+    email = webberwu.tw@gmail.com
 [color]
-	ui = auto
-	diff = auto
-	status = auto
-	branch = auto
+    ui = auto
+    diff = auto
+    status = auto
+    branch = auto
 [push]
-	default = current
+    default = current
 [alias]
     cm = commit -a
     st = status
@@ -21,4 +21,4 @@
     update-last-commit-date = commit --amend --no-edit --date=now
 [core]
     hookspath = ~/.git-hooks
-	ignorecase = false
+    ignorecase = false
