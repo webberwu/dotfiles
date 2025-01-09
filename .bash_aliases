@@ -32,7 +32,6 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias findswp="find . -name '*.swp'"
 alias delswp="findswp; find . -name '*.swp' | xargs rm"
-alias composer='php -d allow_url_fopen=On -d apc.enable_cli=off ~/bin/composer.phar'
 # show mount list on docker container, usage: show-docker-mount <container_id> | jq .
 alias docker-show-mounts="docker inspect -f '{{ json .Mounts }}'"
 alias docker-show-unuse-volumes="docker volume ls -qf dangling=true"

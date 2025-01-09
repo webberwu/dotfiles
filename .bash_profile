@@ -22,8 +22,6 @@ if [ ! -z `command -v brew` ] && [ -d `brew --prefix`/etc/bash_completion.d ]; t
 fi
 
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-[ -f ~/.fzf/shell/key-bindings.bash ] && source ~/.fzf/shell/key-bindings.bash
 
 [ -d $HOME/bin ] && export PATH=$HOME/bin:$PATH
 [ ! -z `command -v yarn` ] && export PATH=$PATH:`yarn global bin`
