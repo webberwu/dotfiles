@@ -25,7 +25,8 @@ export HISTTIMEFORMAT="%Y/%m/%d %T "
 export SCALA_HOME="/usr/local/share/scala"
 export SPARK_HOME="/usr/local/share/spark"
 export PATH="$HOME/bin:$SPARK_HOME/bin:$SCALA_HOME/bin:$PATH"
-export PATH=$PATH:/usr/local/go/bin
+export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 # color settings for less command
 export LESS_TERMCAP_mb=$'\e[1;31m' # begin blink
