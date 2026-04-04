@@ -36,3 +36,5 @@ export LESS_TERMCAP_us=$'\e[38;5;208m' # begin underline
 export LESS_TERMCAP_ue=$'\e[0m' # reset underline
 export LESS_TERMCAP_so=$'\e[38;5;15m\e[48;5;162m' # begin standout (reverse video)
 export LESS_TERMCAP_se=$'\e[0m' # reset standout
+
+export CLAUDE_CODE_NO_FLICKER=1
