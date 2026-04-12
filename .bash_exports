@@ -14,7 +14,7 @@ case $(uname -s) in
 esac
 
 export LC_ALL=en_US.UTF-8
-export EDITOR="vim"
+export EDITOR="nvim"
 export PAGER="less"
 export GIT_PAGER="less"
 export DEBFULLNAME="Webber Wu"
