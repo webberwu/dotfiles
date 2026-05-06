@@ -22,3 +22,14 @@ for file in bin/*; do
         ln -sfnv "$CWD/$file" "$HOME/$file"
     fi
 done
+
+# Claude Code
+mkdir -p "$HOME/.claude"
+ln -sfnv "$CWD/.claude/settings.json" "$HOME/.claude/settings.json"
+if [ -d "$HOME/.claude/hooks" ] && [ ! -L "$HOME/.claude/hooks" ]; then
+    echo "Warning: $HOME/.claude/hooks already exists as a real directory, skipping symlink."
+else
+    ln -sfnv "$CWD/.claude/hooks" "$HOME/.claude/hooks"
+fi
+
+osascript -e 'display notification "dotfiles 設定完成" with title "dotfiles setup ✅" sound name "Glass"' || true
