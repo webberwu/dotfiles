@@ -1,35 +1,59 @@
 #!/bin/bash
 
-ABSPATH=$(cd ${0%/*} && echo `pwd`/${0##*/})
-CWD=`dirname "$ABSPATH"`
+ABSPATH=$(cd "${0%/*}" && echo "$(pwd)/${0##*/}")
+CWD=$(dirname "$ABSPATH")
+
+DRY_RUN=false
+if [[ "$1" == "--dry-run" ]]; then
+    DRY_RUN=true
+fi
 
 function link {
     srcfile="$CWD/$1"
-    destfile="$HOME/"
 
-    ln -sfnv $srcfile $destfile
+    if $DRY_RUN; then
+        echo "$srcfile"
+    else
+        ln -sfnv "$srcfile" "$HOME/"
+    fi
 }
 
+shopt -s nullglob
+
 for file in .*; do
-    if [ . != $file ] && [ .. != $file ] && [ '.gitignore' != $file ] && [ '.git' != $file ] && [ 'swp' != ${file##*.} ]; then
-        #link $file
-        echo $file
+    if [ . != "$file" ] && [ .. != "$file" ] && [ '.gitignore' != "$file" ] && [ '.git' != "$file" ] && [ 'swp' != "${file##*.}" ]; then
+        link "$file"
     fi
 done
 
+mkdir -p "$HOME/bin"
 for file in bin/*; do
-    if [ ! -L "$HOME/$file" ]; then
+    if $DRY_RUN; then
+        echo "$CWD/$file"
+    elif [ ! -L "$HOME/$file" ]; then
         ln -sfnv "$CWD/$file" "$HOME/$file"
     fi
 done
 
 # Claude Code
 mkdir -p "$HOME/.claude"
-ln -sfnv "$CWD/.claude/settings.json" "$HOME/.claude/settings.json"
-if [ -d "$HOME/.claude/hooks" ] && [ ! -L "$HOME/.claude/hooks" ]; then
+
+if $DRY_RUN; then
+    echo "$CWD/.claude/settings.json"
+elif [ -f "$HOME/.claude/settings.json" ] && [ ! -L "$HOME/.claude/settings.json" ]; then
+    echo "Warning: $HOME/.claude/settings.json already exists as a real file, skipping symlink."
+else
+    ln -sfnv "$CWD/.claude/settings.json" "$HOME/.claude/settings.json"
+fi
+
+if $DRY_RUN; then
+    echo "$CWD/.claude/hooks"
+elif [ -d "$HOME/.claude/hooks" ] && [ ! -L "$HOME/.claude/hooks" ]; then
     echo "Warning: $HOME/.claude/hooks already exists as a real directory, skipping symlink."
 else
     ln -sfnv "$CWD/.claude/hooks" "$HOME/.claude/hooks"
 fi
 
-osascript -e 'display notification "dotfiles 設定完成" with title "dotfiles setup ✅" sound name "Glass"' || true
+if ! $DRY_RUN; then
+    osascript -e 'display notification "dotfiles 設定完成" with title "dotfiles setup ✅" sound name "Glass"' || true
+fi
