@@ -23,12 +23,12 @@ project=$(basename "${cwd:-}")
 timestamp=$(date +"%H:%M:%S")
 
 if [ "$hook_event" = "Stop" ]; then
-    osascript -e "display notification \"任務完成 | 專案: $project | $timestamp\" with title \"Claude Code ✅\" sound name \"Funk\"" || true
+    osascript -e "display notification \"任務完成 | 專案: $project | $timestamp\" with title \"✅ Claude Code\" sound name \"Funk\"" || true
 
 elif [ "$hook_event" = "Notification" ]; then
     if [ -n "$tool" ]; then
-        osascript -e "display notification \"需要授權 | 工具: $tool | 專案: $project | $timestamp\" with title \"Claude Code 🔐\" sound name \"Ping\"" || true
+        osascript -e "display notification \"需要授權 | 工具: $tool | 專案: $project | $timestamp\" with title \"🔐 Claude Code\" sound name \"Ping\"" || true
     else
-        osascript -e "display notification \"需要授權 | 專案: $project | $timestamp\" with title \"Claude Code 🔐\" sound name \"Ping\"" || true
+        osascript -e "display notification \"需要授權 | 專案: $project | $timestamp\" with title \"🔐 Claude Code\" sound name \"Ping\"" || true
     fi
 fi
