@@ -42,7 +42,7 @@
     "context7@claude-plugins-official": true,
     "php-lsp@claude-plugins-official": true,
     "code-review@claude-plugins-official": true,
-    "laravel-boost@claude-plugins-official": true,
+    "laravel-boost@claude-plugins-official": false,
     "superpowers@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
