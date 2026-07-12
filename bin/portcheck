@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+# portcheck — show listening ports with owning process
+# Usage: portcheck [port]
+set -euo pipefail
+
+# Resolving a socket to its owning process for OTHER users' sockets (nginx,
+# mysqld, ...) requires root, so escalate to sudo when we aren't already root.
+sudo_pre=""
+if [[ "$EUID" -ne 0 ]] && command -v sudo >/dev/null 2>&1; then
+    sudo_pre="sudo"
+fi
+
+# Detail for a single port via lsof, falling back to ss when lsof is absent
+# (common on minimal Linux installs). $2, if set, is a privilege prefix.
+port_detail() {
+    local p=$1 pre=${2:-}
+    if command -v lsof >/dev/null 2>&1; then
+        $pre lsof -i :"$p" -nP +c0 2>/dev/null || true
+    elif command -v ss >/dev/null 2>&1; then
+        $pre ss -tulnp 2>/dev/null | grep -E "[:.]$p([^0-9]|$)" || true
+    fi
+}
+
+# Is anything bound to this port? Uses a non-privileged probe so we only
+# escalate to sudo when a listener actually exists but is owned by another
+# user — never for a port that simply has no listener.
+port_in_use() {
+    local p=$1
+    if command -v ss >/dev/null 2>&1; then
+        ss -tuln 2>/dev/null | grep -qE "[:.]$p([^0-9]|$)"
+    elif command -v netstat >/dev/null 2>&1; then
+        netstat -an 2>/dev/null | grep -qE "[:.]$p([^0-9]|$)"
+    fi
+}
+
+if [[ $# -gt 1 ]]; then
+    echo "Usage: portcheck [port]" >&2
+    exit 2
+fi
+
+if [[ $# -eq 1 ]]; then
+    port=$1
+    echo "Process detail:"
+    detail=$(port_detail "$port")
+    if [[ -z "$detail" && -n "$sudo_pre" ]] && port_in_use "$port"; then
+        # Bound by another user (e.g. mysqld) — re-run as root to resolve it.
+        detail=$(port_detail "$port" "$sudo_pre")
+    fi
+    echo "${detail:-  (no listener found on port $port)}"
+    exit 0
+fi
+
+# List everything. Escalate to sudo (when available) so process names owned by
+# root/other users are resolved instead of showing a blank Process column.
+echo "All listening TCP/UDP ports:"
+echo ""
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    # macOS has no ss; assemble the listing from lsof. Drop connected UDP
+    # sockets (NAME with '->') and unbound wildcards (*:*) so only real
+    # listeners remain, matching the "listening" header.
+    { $sudo_pre lsof -nP +c0 -iTCP -sTCP:LISTEN 2>/dev/null; \
+      $sudo_pre lsof -nP +c0 -iUDP 2>/dev/null | awk 'NR>1 && !/->/ && $0 !~ /\*:\*/'; } | column -t
+else
+    # ss's header has spaces in "Local Address:Port"/"Peer Address:Port", which
+    # column -t would split into extra columns; join them so alignment holds.
+    $sudo_pre ss -tulnp \
+        | sed '1s/Local Address:Port/Local-Address:Port/;1s/Peer Address:Port/Peer-Address:Port/' \
+        | column -t
+fi
