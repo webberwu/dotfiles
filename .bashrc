@@ -20,7 +20,6 @@ function load_rcfile {
 load_rcfile ~/.bash
 load_rcfile ~/.bash_aliases
 load_rcfile ~/.bash_exports
-load_rcfile ~/.nvm/nvm.sh
 load_rcfile ~/.bash_local
 
 # enable programmable completion features (you don't need to enable

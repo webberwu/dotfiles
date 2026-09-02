@@ -13,8 +13,8 @@ if [ -f /etc/profile.d/bash_completion.sh ]; then
 fi
 
 
-if [ $(uname) = "Darwin" ] && command -v brew &>/dev/null ; then
-  BREW_PREFIX=$(brew --prefix)
+BREW_PREFIX="${HOMEBREW_PREFIX:-/opt/homebrew}"
+if [ -x "$BREW_PREFIX/bin/brew" ]; then
 
   if [ -f "$BREW_PREFIX"/etc/bash_completion ]; then
     . "$BREW_PREFIX"/etc/bash_completion

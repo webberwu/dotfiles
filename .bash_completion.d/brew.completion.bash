@@ -1,5 +1,5 @@
-if which brew >/dev/null 2>&1; then
-  BREW_PREFIX=$(brew --prefix)
+BREW_PREFIX="${HOMEBREW_PREFIX:-/opt/homebrew}"
+if [ -x "$BREW_PREFIX/bin/brew" ]; then
   if [ -f "$BREW_PREFIX"/etc/bash_completion.d/brew ]; then
     . "$BREW_PREFIX"/etc/bash_completion.d/brew
   elif [ -f "$BREW_PREFIX"/Library/Contributions/brew_bash_completion.sh ]; then
