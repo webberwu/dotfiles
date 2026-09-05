@@ -36,7 +36,7 @@ fi
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
 
 [ -d $HOME/bin ] && export PATH=$HOME/bin:$PATH
-[ ! -z `command -v yarn` ] && export PATH=$PATH:`yarn global bin`
+[ -d "$HOME/.yarn/bin" ] && export PATH="$PATH:$HOME/.yarn/bin"
 [ -d $HOME/.composer/vendor/bin ] && export PATH=$HOME/.composer/vendor/bin:$PATH
 [ -d $HOME/.config/composer/vendor/bin ] && export PATH=$HOME/.config/composer/vendor/bin:$PATH
 
