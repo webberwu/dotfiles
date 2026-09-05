@@ -104,6 +104,11 @@ function _wt_git_split_upstream {
     done
 }
 
+# 只偵測 git；p4/hg/svn 用不到。
+function scm {
+    if _wt_git_dir; then SCM=$SCM_GIT; else SCM=$SCM_NONE; fi
+}
+
 function git_prompt_vars {
     local line oid= head= upstream= ab= xy
     local staged=0 unstaged=0 untracked=0 have_ab=

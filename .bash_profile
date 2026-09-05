@@ -35,11 +35,11 @@ fi
 [ -d $HOME/.composer/vendor/bin ] && export PATH=$HOME/.composer/vendor/bin:$PATH
 [ -d $HOME/.config/composer/vendor/bin ] && export PATH=$HOME/.config/composer/vendor/bin:$PATH
 
-if [ ! -z $(command -v go) ]; then
+if command -v go > /dev/null 2>&1; then
     [ -d /usr/local/opt/go/libexec/bin ] && export PATH=$PATH:/usr/local/opt/go/libexec/bin
     export GO111MODULE=on
     export GOPATH=$(go env GOPATH)
-    export PATH=$PATH:$(go env GOPATH)/bin
+    export PATH=$PATH:$GOPATH/bin
 fi
 
 # nvm lazy load: source nvm.sh 要 ~225ms。平常只把 default 版本的 bin 加進 PATH
