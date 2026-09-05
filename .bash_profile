@@ -23,17 +23,12 @@ if [ -d $HOME/.bash_completion.d ] ; then
 fi
 
 if [ -n "$HOMEBREW_PREFIX" ]; then
-    # 原本這行是 `source `brew --prefix`/etc/bash_completion.d/*`，但 source 只吃第一個參數
-    # （其餘變成 positional params），實際上只載入了字母序第一個檔 ag.bashcomp.sh。
-    # 這裡維持原本的實際行為；全部 20 個檔都載入要多付 ~60ms。
-    [ -r "$HOMEBREW_PREFIX/etc/bash_completion.d/ag.bashcomp.sh" ] && \
-        . "$HOMEBREW_PREFIX/etc/bash_completion.d/ag.bashcomp.sh"
+    # etc/bash_completion.d/* 由 system.completion.bash 載入的 bash-completion
+    # framework 統一處理（ag.bashcomp.sh 也在其中），這裡不用再各別 source。
     export HOMEBREW_NO_AUTO_UPDATE=1
     export HOMEBREW_NO_INSTALL_CLEANUP=1
     export PATH="$HOMEBREW_PREFIX/bin:$PATH"
 fi
-
-[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
 
 [ -d $HOME/bin ] && export PATH=$HOME/bin:$PATH
 [ -d "$HOME/.yarn/bin" ] && export PATH="$PATH:$HOME/.yarn/bin"
