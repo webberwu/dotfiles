@@ -1,4 +1,8 @@
 {
+  "env": {
+    "OPT_OUT_INSTRUMENTATION": "true"
+  },
+  "model": "opus[1m]",
   "hooks": {
     "Stop": [
       {
@@ -43,7 +47,16 @@
     "skill-creator@claude-plugins-official": true,
     "playwright@claude-plugins-official": true,
     "notion@claude-plugins-official": true,
-    "slack@claude-plugins-official": true
+    "slack@claude-plugins-official": true,
+    "andrej-karpathy-skills@karpathy-skills": true,
+    "ponytail@ponytail": true,
+    "shopify-ai-toolkit@claude-plugins-official": true,
+    "ui-ux-pro-max@ui-ux-pro-max-skill": true,
+    "baoyu-skills@baoyu-skills": true,
+    "i-have-adhd@i-have-adhd": true,
+    "eli5@claude-community": true,
+    "mattpocock-skills@claude-community": true,
+    "miro@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "superpowers-marketplace": {
@@ -52,7 +65,64 @@
         "repo": "obra/superpowers-marketplace"
       },
       "autoUpdate": true
+    },
+    "n8n-mcp-skills": {
+      "source": {
+        "source": "github",
+        "repo": "czlonkowski/n8n-skills"
+      },
+      "autoUpdate": true
+    },
+    "karpathy-skills": {
+      "source": {
+        "source": "github",
+        "repo": "forrestchang/andrej-karpathy-skills"
+      },
+      "autoUpdate": true
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      },
+      "autoUpdate": true
+    },
+    "ui-ux-pro-max-skill": {
+      "source": {
+        "source": "github",
+        "repo": "nextlevelbuilder/ui-ux-pro-max-skill"
+      },
+      "autoUpdate": true
+    },
+    "baoyu-skills": {
+      "source": {
+        "source": "github",
+        "repo": "JimLiu/baoyu-skills"
+      },
+      "autoUpdate": true
+    },
+    "i-have-adhd": {
+      "source": {
+        "source": "github",
+        "repo": "ayghri/i-have-adhd"
+      },
+      "autoUpdate": true
+    },
+    "claude-community": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-community"
+      },
+      "autoUpdate": true
     }
   },
-  "skipDangerousModePermissionPrompt": true
+  "modelSettings": {
+    "claude-opus-5": {
+      "effortLevel": "high"
+    }
+  },
+  "advisorModel": "fable",
+  "skipDangerousModePermissionPrompt": true,
+  "remoteControlAtStartup": true,
+  "agentPushNotifEnabled": true
 }
