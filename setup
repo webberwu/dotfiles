@@ -21,7 +21,7 @@ function link {
 shopt -s nullglob
 
 for file in .*; do
-    if [ . != "$file" ] && [ .. != "$file" ] && [ '.gitignore' != "$file" ] && [ '.git' != "$file" ] && [ 'swp' != "${file##*.}" ]; then
+    if [ . != "$file" ] && [ .. != "$file" ] && [ '.gitignore' != "$file" ] && [ '.git' != "$file" ] && [ '.claude' != "$file" ] && [ 'swp' != "${file##*.}" ]; then
         link "$file"
     fi
 done
@@ -38,21 +38,15 @@ done
 # Claude Code
 mkdir -p "$HOME/.claude"
 
-if $DRY_RUN; then
-    echo "$CWD/.claude/settings.json"
-elif [ -f "$HOME/.claude/settings.json" ] && [ ! -L "$HOME/.claude/settings.json" ]; then
-    echo "Warning: $HOME/.claude/settings.json already exists as a real file, skipping symlink."
-else
-    ln -sfnv "$CWD/.claude/settings.json" "$HOME/.claude/settings.json"
-fi
-
-if $DRY_RUN; then
-    echo "$CWD/.claude/hooks"
-elif [ -d "$HOME/.claude/hooks" ] && [ ! -L "$HOME/.claude/hooks" ]; then
-    echo "Warning: $HOME/.claude/hooks already exists as a real directory, skipping symlink."
-else
-    ln -sfnv "$CWD/.claude/hooks" "$HOME/.claude/hooks"
-fi
+for name in settings.json hooks CLAUDE.md statusline.sh; do
+    if $DRY_RUN; then
+        echo "$CWD/.claude/$name"
+    elif [ -e "$HOME/.claude/$name" ] && [ ! -L "$HOME/.claude/$name" ]; then
+        echo "Warning: $HOME/.claude/$name already exists and is not a symlink, skipping."
+    else
+        ln -sfnv "$CWD/.claude/$name" "$HOME/.claude/$name"
+    fi
+done
 
 if ! $DRY_RUN; then
     osascript -e 'display notification "dotfiles 設定完成" with title "dotfiles setup ✅" sound name "Glass"' || true
