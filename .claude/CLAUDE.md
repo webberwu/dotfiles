@@ -32,11 +32,6 @@
 
 - 同步到 Notion、Obsidian、ClickUp 前，任何寫入變更一律先呈現 diff，經我核准後才套用；唯讀查詢不在此限。
 
-## Rhitics MongoDB
-
-- 查 rhitics DB 一律用 `mongosh "$RHITICS_MONGO_DB" --quiet --eval '<js>'`（環境變數在 `~/.bash_local`）。
-- 不要用 mongodb MCP tools：目標是 AWS DocumentDB（MongoDB 4.0 相容、wire version 7），mongodb-mcp-server 的 Node driver v6 最低要求 wire version 8，連線必失敗且錯誤訊息誤導為「connection string is not valid」。
-
 ## Database Queries
 
 - 查詢 DB 前，務必先評估 SQL 是否為 slow SQL；若有疑慮，執行前必須先與我確認才能執行。
@@ -46,3 +41,7 @@
 ## Language Preferences
 
 除非明確要求，否則一律以繁體中文回覆。
+
+## 本機專用
+
+@~/.claude/CLAUDE.local.md
