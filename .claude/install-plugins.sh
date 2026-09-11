@@ -40,6 +40,10 @@ PLUGINS=(
     i-have-adhd@i-have-adhd
 )
 
+SKILLS=(
+    bybit-exchange/svg-diagram
+)
+
 command -v claude >/dev/null || { echo "找不到 claude CLI，請先安裝 Claude Code"; exit 1; }
 
 failed=()
@@ -66,6 +70,16 @@ for p in "${PLUGINS[@]}"; do
     claude plugin install "$p" --scope user -y || failed+=("plugin: $p")
 done
 
+echo "==> 安裝 skills (user scope)"
+# 非 plugin 的獨立 agent skill，走 skills CLI；-a claude-code 只寫 ~/.claude/skills/，不動其他 agent。
+if command -v npx >/dev/null; then
+    for s in "${SKILLS[@]}"; do
+        npx -y skills@latest add "$s" -g -a claude-code -y || failed+=("skill: $s")
+    done
+else
+    failed+=("skills: 需要 npx")
+fi
+
 if [ ${#failed[@]} -gt 0 ]; then
     echo
     echo "以下項目失敗："
@@ -76,3 +90,4 @@ fi
 echo
 echo "完成。MCP 類 plugin (notion/slack/figma/miro/context7) 仍需各自重新授權。"
 echo "marketplace 已設為 auto update；claude-plugins-official 為內建，不需設定。"
+echo "skills 無 auto update，需要時手動跑 npx skills update -g。"
