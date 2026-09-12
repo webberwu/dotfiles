@@ -25,7 +25,6 @@ GIT_THEME_PROMPT_DIRTY="$(color 125 ${VERSION_CONTROL_BG}) ✗${NORMAL}"
 GIT_THEME_PROMPT_CLEAN="$(color 22 ${VERSION_CONTROL_BG}) ✓${NORMAL}"
 GIT_THEME_PROMPT_PREFIX="$(color ${VERSION_CONTROL_FG} ${VERSION_CONTROL_BG})"
 GIT_THEME_PROMPT_SUFFIX="$(color ${VERSION_CONTROL_FG} ${VERSION_CONTROL_BG})"
-SCM_GIT_SHOW_MINIMAL_INFO=false
 SCM_THEME_PROMPT_DIRTY="${GIT_THEME_PROMPT_DIRTY}"
 SCM_THEME_PROMPT_CLEAN="${GIT_THEME_PROMPT_CLEAN}"
 SCM_THEME_PROMPT_PREFIX="${GIT_THEME_PROMPT_PREFIX}"
@@ -58,7 +57,8 @@ safe_append_prompt_command prompt_command
 # 覆寫 bash-it 的 git_prompt_vars，改用單一
 # `git status --porcelain=v2 --branch` 取得分支、upstream、ahead/behind
 # 與檔案狀態。
-# base.theme.bash 與 githelpers.theme.bash 未改動，刪掉這段即回到原版。
+# base.theme.bash 與 githelpers.theme.bash 已裁切成只服務這份 override 的
+# 最小子集，原始完整版見 https://github.com/Bash-it/bash-it。
 # ---------------------------------------------------------------------------
 
 # 往上找 .git。worktree / submodule 的 .git 是檔案而非目錄。
@@ -218,8 +218,6 @@ function git_prompt_vars {
             SCM_STATE=${GIT_THEME_PROMPT_DIRTY:-$SCM_THEME_PROMPT_DIRTY}
         fi
     fi
-
-    [[ ${SCM_GIT_SHOW_CURRENT_USER} == "true" ]] && SCM_BRANCH+="$(git_user_info)"
 
     SCM_PREFIX=${GIT_THEME_PROMPT_PREFIX:-$SCM_THEME_PROMPT_PREFIX}
     SCM_SUFFIX=${GIT_THEME_PROMPT_SUFFIX:-$SCM_THEME_PROMPT_SUFFIX}
