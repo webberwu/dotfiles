@@ -108,14 +108,55 @@ iso_to_epoch() {
 }
 
 # ── Extract JSON data ───────────────────────────────────
-model_name=$(echo "$input" | jq -r '.model.display_name // "Claude"')
+# 一次 jq 取完所有欄位。原本對同一份 stdin 呼叫 11 次 jq、對 settings.json
+# 再 1 次，實測 12 次 jq ≈ 190ms，合併後 ≈ 16ms。
+# 每個欄位固定輸出一行，順序與下面的 read 一一對應；缺值輸出空字串——
+# 不能用 jq 的 empty，那會少印一行讓後面全部錯位。
+settings_path="$HOME/.claude/settings.json"
+[ -f "$settings_path" ] || settings_path=/dev/null
 
-size=$(echo "$input" | jq -r '.context_window.context_window_size // 200000')
+# extra_usage 開關只存在於這份 cache，順手一起讀，熱路徑就只剩這一次 jq。
+cache_file="/tmp/claude/statusline-usage-cache.json"
+cache_src="$cache_file"
+[ -f "$cache_src" ] || cache_src=/dev/null
+
+{
+    IFS= read -r model_name
+    IFS= read -r size
+    IFS= read -r input_tokens
+    IFS= read -r cache_create
+    IFS= read -r cache_read
+    IFS= read -r cwd
+    IFS= read -r session_start
+    IFS= read -r stdin_five_pct
+    IFS= read -r five_hour_reset_epoch
+    IFS= read -r stdin_seven_pct
+    IFS= read -r seven_day_reset_epoch
+    IFS= read -r effort
+    IFS= read -r cached_extra_enabled
+} < <(printf '%s' "$input" | jq -r --slurpfile cfg "$settings_path" --slurpfile cache "$cache_src" '
+    (.model.display_name // "Claude"),
+    (.context_window.context_window_size // 200000),
+    (.context_window.current_usage.input_tokens // 0),
+    (.context_window.current_usage.cache_creation_input_tokens // 0),
+    (.context_window.current_usage.cache_read_input_tokens // 0),
+    (.cwd // ""),
+    (.session.start_time // ""),
+    (.rate_limits.five_hour.used_percentage // ""),
+    (.rate_limits.five_hour.resets_at // ""),
+    (.rate_limits.seven_day.used_percentage // ""),
+    (.rate_limits.seven_day.resets_at // ""),
+    ($cfg[0].effortLevel // "default"),
+    ($cache[0].extra_usage.is_enabled // false)
+' 2>/dev/null)
+
+# jq 失敗（stdin 不是合法 JSON）時每個變數都是空的，補回原本的預設值，
+# 免得後面的算術與 [ -eq ] 噴錯到狀態列上。
+[ -n "$model_name" ] || model_name="Claude"
+[ -n "$size" ] || size=200000
 [ "$size" -eq 0 ] 2>/dev/null && size=200000
+[ -n "$effort" ] || effort="default"
 
-input_tokens=$(echo "$input" | jq -r '.context_window.current_usage.input_tokens // 0')
-cache_create=$(echo "$input" | jq -r '.context_window.current_usage.cache_creation_input_tokens // 0')
-cache_read=$(echo "$input" | jq -r '.context_window.current_usage.cache_read_input_tokens // 0')
 current=$(( input_tokens + cache_create + cache_read ))
 
 if [ "$size" -gt 0 ]; then
@@ -124,15 +165,8 @@ else
     pct_used=0
 fi
 
-effort="default"
-settings_path="$HOME/.claude/settings.json"
-if [ -f "$settings_path" ]; then
-    effort=$(jq -r '.effortLevel // "default"' "$settings_path" 2>/dev/null)
-fi
-
 # ── LINE 1: Model │ Context % │ Directory (branch) │ Session │ Effort ──
 pct_color=$(color_for_pct "$pct_used")
-cwd=$(echo "$input" | jq -r '.cwd // ""')
 [ -z "$cwd" ] || [ "$cwd" = "null" ] && cwd=$(pwd)
 dirname=$(basename "$cwd")
 
@@ -146,7 +180,6 @@ if git -C "$cwd" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
 fi
 
 session_duration=""
-session_start=$(echo "$input" | jq -r '.session.start_time // empty')
 if [ -n "$session_start" ] && [ "$session_start" != "null" ]; then
     start_epoch=$(iso_to_epoch "$session_start")
     if [ -n "$start_epoch" ]; then
@@ -191,21 +224,16 @@ esac
 # ── Rate limits from stdin (primary) ───────────────────
 has_stdin_rates=false
 five_hour_pct=""
-five_hour_reset_epoch=""
 seven_day_pct=""
-seven_day_reset_epoch=""
 
-stdin_five_pct=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
+# printf 是 bash builtin，取代原本為了四捨五入而 fork 的 awk。
 if [ -n "$stdin_five_pct" ]; then
     has_stdin_rates=true
     five_hour_pct=$(printf "%.0f" "$stdin_five_pct")
-    five_hour_reset_epoch=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
-    seven_day_pct=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty' | awk '{printf "%.0f", $1}')
-    seven_day_reset_epoch=$(echo "$input" | jq -r '.rate_limits.seven_day.resets_at // empty')
+    [ -n "$stdin_seven_pct" ] && seven_day_pct=$(printf "%.0f" "$stdin_seven_pct")
 fi
 
 # ── Fallback: API call (cached) ────────────────────────
-cache_file="/tmp/claude/statusline-usage-cache.json"
 cache_max_age=60
 mkdir -p /tmp/claude
 
@@ -268,23 +296,30 @@ if ! $has_stdin_rates; then
         fi
     fi
 
-    if [ -n "$usage_data" ] && echo "$usage_data" | jq -e . >/dev/null 2>&1; then
-        five_hour_pct=$(echo "$usage_data" | jq -r '.five_hour.utilization // 0' | awk '{printf "%.0f", $1}')
-        five_hour_reset_iso=$(echo "$usage_data" | jq -r '.five_hour.resets_at // empty')
+    if [ -n "$usage_data" ]; then
+        # 同樣一次 jq 取完；round 由 jq 做，省掉兩個 awk。
+        # 資料壞掉時 jq 失敗、變數全空，等同原本 `jq -e .` 驗證不過的分支。
+        {
+            IFS= read -r five_hour_pct
+            IFS= read -r five_hour_reset_iso
+            IFS= read -r seven_day_pct
+            IFS= read -r seven_day_reset_iso
+            IFS= read -r extra_enabled
+        } < <(printf '%s' "$usage_data" | jq -r '
+            ((.five_hour.utilization // 0) | round),
+            (.five_hour.resets_at // ""),
+            ((.seven_day.utilization // 0) | round),
+            (.seven_day.resets_at // ""),
+            (.extra_usage.is_enabled // false)
+        ' 2>/dev/null)
         five_hour_reset_epoch=$(iso_to_epoch "$five_hour_reset_iso")
-        seven_day_pct=$(echo "$usage_data" | jq -r '.seven_day.utilization // 0' | awk '{printf "%.0f", $1}')
-        seven_day_reset_iso=$(echo "$usage_data" | jq -r '.seven_day.resets_at // empty')
         seven_day_reset_epoch=$(iso_to_epoch "$seven_day_reset_iso")
-
-        extra_enabled=$(echo "$usage_data" | jq -r '.extra_usage.is_enabled // false')
     fi
 else
-    if [ -f "$cache_file" ]; then
-        usage_data=$(cat "$cache_file" 2>/dev/null)
-        if [ -n "$usage_data" ] && echo "$usage_data" | jq -e . >/dev/null 2>&1; then
-            extra_enabled=$(echo "$usage_data" | jq -r '.extra_usage.is_enabled // false')
-        fi
-    fi
+    # stdin 已有 rate_limits；extra_enabled 上面已從 cache 讀好，
+    # 這裡只需把 cache 內容留給下面的 extra_usage 區塊用。
+    [ -f "$cache_file" ] && usage_data=$(cat "$cache_file" 2>/dev/null)
+    extra_enabled="$cached_extra_enabled"
 fi
 
 # ── Rate limit lines ────────────────────────────────────
@@ -313,9 +348,17 @@ if [ -n "$seven_day_pct" ]; then
 fi
 
 if [ "$extra_enabled" = "true" ] && [ -n "$usage_data" ]; then
-    extra_pct=$(echo "$usage_data" | jq -r '.extra_usage.utilization // 0' | awk '{printf "%.0f", $1}')
-    extra_used=$(echo "$usage_data" | jq -r '.extra_usage.used_credits // 0' | awk '{printf "%.2f", $1/100}')
-    extra_limit=$(echo "$usage_data" | jq -r '.extra_usage.monthly_limit // 0' | awk '{printf "%.2f", $1/100}')
+    {
+        IFS= read -r extra_pct
+        IFS= read -r extra_used
+        IFS= read -r extra_limit
+    } < <(printf '%s' "$usage_data" | jq -r '
+        ((.extra_usage.utilization // 0) | round),
+        ((.extra_usage.used_credits // 0) / 100),
+        ((.extra_usage.monthly_limit // 0) / 100)
+    ' 2>/dev/null)
+    extra_used=$(printf "%.2f" "${extra_used:-0}")
+    extra_limit=$(printf "%.2f" "${extra_limit:-0}")
     extra_bar=$(build_bar "$extra_pct" "$bar_width")
     extra_pct_color=$(color_for_pct "$extra_pct")
 
