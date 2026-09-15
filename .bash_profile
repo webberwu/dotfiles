@@ -64,3 +64,8 @@ if [ -s "$NVM_DIR/nvm.sh" ]; then
     fi
     unset _nvm_cache
 fi
+
+# fzf 會把 ssh/kill/curl… 的 completion 綁到自己的 wrapper，而那個 wrapper 的
+# fallback 需要 bash-completion 的 _completion_loader 已經存在，所以必須排在
+# .bash_completion.d 之後載入，否則 lazy 載入的補全（如 ssh）會全部失效。
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

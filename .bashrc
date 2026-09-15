@@ -23,5 +23,3 @@ load_rcfile ~/.bash_exports
 load_rcfile ~/.bash_local
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
