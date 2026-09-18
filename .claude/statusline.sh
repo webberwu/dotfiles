@@ -146,7 +146,8 @@ cache_src="$cache_file"
     (.rate_limits.five_hour.resets_at // ""),
     (.rate_limits.seven_day.used_percentage // ""),
     (.rate_limits.seven_day.resets_at // ""),
-    ($cfg[0].effortLevel // "default"),
+    ($cfg[0].modelSettings[((.model.id // "") | sub("\\[[^]]*\\]$"; ""))].effortLevel
+        // $cfg[0].effortLevel // "default"),
     ($cache[0].extra_usage.is_enabled // false)
 ' 2>/dev/null)
 
