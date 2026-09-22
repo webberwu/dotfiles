@@ -44,4 +44,7 @@
 
 ## 本機專用
 
+<!-- 這行 import 不能拿掉：~/.claude/CLAUDE.local.md 不會自動載入。
+     Claude Code 只從 cwd 及其上層目錄找 CLAUDE.local.md（見 https://code.claude.com/docs/en/memory），
+     ~/.claude/ 不在那條路徑上，user 層級自動載入的只有 ~/.claude/CLAUDE.md。 -->
 @~/.claude/CLAUDE.local.md
