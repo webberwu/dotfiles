@@ -9,6 +9,7 @@
 ## Code Investigation
 
 - 調查程式碼時，一律引用經驗證的 file:line 作為結論證據；追蹤實際呼叫鏈而非臆測。
+- 陳述流程、預設值或設定行為前，先引用 codebase 或函式庫原始碼的 file:line；未驗證時要明確說明。
 - 回答 codebase 問題時，一律附上 `path/to/file.php:1265` 格式的路徑與行號。引用前必須先用 Read 或 Grep 確認該行確實存在，不確定時明確標注。
 - 呈現任何說明、圖表、ELI5 或 Archify 產出前，先對照實際 codebase 逐項事實查核；每個非顯而易見的斷言都要附檔案路徑與行號。
 - 明確區分「直接觀察到的證據」與「推論」，推論一律標為推論，不可混寫成事實。
@@ -24,13 +25,15 @@
 - 修根因，不修症狀。
 - 除非明確要求暫時性 workaround，不可用設定變更壓制或繞過錯誤（linter ignore、停用規則、try/catch 吞例外）；先確認底層工具／套件是否過舊或設定錯誤。
 
-## File Paths
+## 輸出慣例
 
-- 回報檔案位置一律用完整絕對路徑，不可用 `...` 省略目錄或截斷路徑；包含產出的 HTML/artifact 位置與暫存檔。
+- 回報檔案位置一律用完整絕對路徑，不可用 `...` 省略目錄、截斷路徑或用 `~` 縮寫；包含產出的 artifact、HTML、scratchpad SQL 與暫存檔。
 
-## External Sync (Notion / Obsidian / ClickUp 等外部服務)
+## External Services (Slack / Notion / Obsidian / ClickUp 等外部服務)
 
 - 同步到 Notion、Obsidian、ClickUp 前，任何寫入變更一律先呈現 diff，經我核准後才套用；唯讀查詢不在此限。
+- 引用 Slack/ClickUp 時，逐字引用單一來源訊息並附 permalink。不可把多個項目合併成一段「引文」。
+- 摘要 Slack 討論串時，要讀完所有子討論串以及附加的截圖／圖片。
 
 ## Database Queries
 
